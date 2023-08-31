@@ -24,25 +24,20 @@ size_t binary_tree_height(const binary_tree_t *tree)
 /**
  * lo_recursive - The helper function for level-order traversal.
  *
- * @node: Current node being processed.
+ * @tree: Current tree node being processed.
  * @func: Pointer to the function to call for each node's value.
  * @level: Level being processed.
  *
  * Return: Nothing
  */
-void lo_recursive(const binary_tree_t *node, void (*func)(int), int level)
+void lo_recursive(const binary_tree_t *tree, void (*func)(int), size_t level)
 {
-	if (node == NULL)
-		return;
-
-	if (level == 1)
+	if (!level)
+		func(tree->n);
+	else
 	{
-		func(node->n);
-	}
-	else if (level > 1)
-	{
-		lo_recursive(node->left, func, level - 1);
-		lo_recursive(node->right, func, level - 1);
+		lo_recursive(tree->left, func, level - 1);
+		lo_recursive(tree->right, func, level - 1);
 	}
 }
 
@@ -57,13 +52,11 @@ void lo_recursive(const binary_tree_t *node, void (*func)(int), int level)
  */
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
-	int tree_height = 0, int i;
+	size_t height, i;
 
-	if (tree == NULL || func == NULL)
+	if (!tree || !func)
 		return;
-
-	tree_height = binary_tree_height(tree);
-
-	for (i = 1; i <= tree_height + 1; i++)
+	height = binary_tree_height(tree);
+	for (i = 0; i <= height; i++)
 		lo_recursive(tree, func, i);
 }
