@@ -10,26 +10,16 @@
  */
 size_t binary_tree_height(const binary_tree_t *tree)
 {
-	size_t height = 0, nodes_in_current_level;
-	const binary_tree_t *temp;
+	size_t l_height = 0, r_height = 0;
 
 	if (tree == NULL)
 		return (0);
 
-	for (nodes_in_current_level = 1; nodes_in_current_level > 0; height++)
-	{
-		nodes_in_current_level = 0;
+	l_height = binary_tree_height(tree->left);
+	r_height = binary_tree_height(tree->right);
 
-		for (temp = tree; temp && nodes_in_current_level == 0;
-		temp = temp->parent)
-		{
-			nodes_in_current_level += 1;
-			if (temp->left)
-				nodes_in_current_level += 1;
-			if (temp->right)
-				nodes_in_current_level += 1;
-		}
-	}
-
-	return (height - 1);
+	if (l_height > r_height)
+		return (l_height + 1);
+	else
+		return (r_height + 1);
 }
