@@ -5,7 +5,6 @@
  *
  * @tree: Pointer to the root node of the tree to measure.
  *
- *
  * Return: The balance factor of the binary tree.
  *         Alternatively, 0 if the tree is empty.
  */
